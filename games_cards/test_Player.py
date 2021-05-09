@@ -1,13 +1,13 @@
 from unittest import TestCase, mock
 from games_cards.Player import Player
 from games_cards.Card import Card
-from games_cards.DeckOfCards import DeckOfCard
+from games_cards.DeckOfCards import DeckOfCards
 
 class TestPlayer(TestCase):
     def setUp(self):
         self.player_1 = Player("dima", 2)
         self.player_2 = Player("shahar", 27)
-        self.deck_cards = DeckOfCard()
+        self.deck_cards = DeckOfCards()
         self.card_1 = Card(1, 3)
         self.card_2 = Card(2, 1)
 
@@ -24,7 +24,7 @@ class TestPlayer(TestCase):
         self.assertEqual(26, len(self.player_2.player_deck))
 
     def test_set_hand_3(self):
-        deck_cards = DeckOfCard()
+        deck_cards = DeckOfCards()
         deck_cards.cards.append(1)
         with self.assertRaises(SystemExit):
             self.player_1.set_hand(deck_cards)

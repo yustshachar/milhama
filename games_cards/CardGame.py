@@ -1,4 +1,4 @@
-from games_cards.DeckOfCards import DeckOfCard
+from games_cards.DeckOfCards import DeckOfCards
 from games_cards.Player import Player
 from sys import exit
 
@@ -12,7 +12,7 @@ class CardGame:
                 self.num_cards=num_cards
                 self.player_1=Player(name1,self.num_cards)
                 self.player_2=Player(name2,self.num_cards)
-                self.deck_cards=DeckOfCard()
+                self.deck_cards=DeckOfCards()
                 self.new_game()
             else:
                 exit("ERROR!") # אם הכמות היא פחות מ1 תדפיס שגיאה

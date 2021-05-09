@@ -1,30 +1,28 @@
 from unittest.mock import patch
 from unittest import TestCase
 from games_cards.Card import Card
-from games_cards.DeckOfCards import DeckOfCard
+from games_cards.DeckOfCards import DeckOfCards
 
 
 class TestDeckOfCard(TestCase):
     def setUp(self):
-        self.tester=DeckOfCard()
+        self.tester=DeckOfCards()
 
     def test_sum_cards(self):
         """בודקת האם בחפיסה חדשה שנוצרת יש 52 קלפים"""
-        deck1 = DeckOfCard()
+        deck1 = DeckOfCards()
         self.assertEqual(len(deck1.cards),52)
 
     def test_shuffle(self):
         """בודקת האם החפיסה לפני הערבוב שווה לחפיסה חדשה, ובודקת האם החפיסה אחרי הערבוב לא שווה לחפיסה חדשה לפני ערבוב"""
-        deck1=DeckOfCard()
+        deck1=DeckOfCards()
         self.assertEqual(deck1.cards, self.tester.show())
         self.tester.shuffle()
         self.assertNotEqual(deck1.cards, self.tester.show())
 
-    # @mock.patch("random.randint", return_value=1)
-    def test_deal_one1(self):
-        with patch("random.randint") as mock1:
-            mock1.return_value=1
-        """לא עובד המוק עדיין"""
+    @patch("games_cards.DeckOfCards.DeckOfCards.random_for_deal_one", return_value=1)
+    def test_deal_one1(self, mock_rand):
+        """בודקת אם הפונקציה מחזירה לי בהגרלה את אינדקס 1 האם זה באמת אותו קלף"""
         c=self.tester.cards[1]
         b=self.tester.deal_one()
         print(c, b)
