@@ -1,7 +1,8 @@
 from random import randint
+from games_cards.DeckOfCards import DeckOfCard
 
 class Player:
-    def __init__(self, name=None, num_cards=10):
+    def __init__(self, name, num_cards=10):
         self.name = name
         self.num_cards = num_cards
         self.player_deck= []

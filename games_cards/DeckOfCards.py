@@ -1,8 +1,8 @@
 # [{1:Club},{2:Club},...]
 from games_cards.Card import Card
-from random import shuffle, randint, randrange
+from random import shuffle, randint
 
-class DeckOfCard():
+class DeckOfCard:
     def __init__(self):
         """מגדירה חפיסת קלפים חדשה עם 52 קלפים"""
         self.cards=[]
