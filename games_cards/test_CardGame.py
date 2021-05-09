@@ -2,26 +2,29 @@ from unittest import TestCase
 from games_cards.CardGame import CardGame
 from games_cards.Card import Card
 
+
 class TestCardGame(TestCase):
     def setUp(self):
-        self.game_test=CardGame("dima","shachar")
+        self.game_test = CardGame("dima", "shachar")
 
     def test_num_cards_not_int(self):
         """בודקת שהמערכת מציגה שגיאה כאשר כמות הקלפים לחלוקה אינו מספר תקין"""
         with self.assertRaises(SystemExit):
-            self.game_test=CardGame("dima", "shachar", "bdika")
+            self.game_test = CardGame("dima", "shachar", "bdika")
 
     def test_no_name_input(self):
-        """בודקת האם המשחק עובד כאשר לא מזינים בכלל פרטים כולל שמות שחקנים"""
-        self.game_test=CardGame()
+        """בודקת האם המשחק עובד כאשר לא מזינים בכלל פרטים. לא כמות קלפים לחלוקה ולא שמות שחקנים"""
+        self.game_test = CardGame()
         self.assertEqual(self.game_test.player_1.name, "player-1")
         self.assertEqual(self.game_test.player_2.name, "player-2")
+        self.assertEqual(self.game_test.player_1.num_cards, 10)
+        self.assertEqual(self.game_test.player_2.num_cards, 10)
 
     def test_get_winner(self):
         """בודקת כאשר יש לשחקן השני פחות קלפים שהשם שלו חוזר"""
         card1 = Card(1, 1)
         card2 = Card(2, 2)
-        card3 = Card(3, 5)
+        card3 = Card(3, 3)
         self.game_test.player_1.player_deck = [card1, card2]
         self.game_test.player_2.player_deck = [card3]
         self.assertIn("shachar", self.game_test.get_winner())
@@ -31,8 +34,8 @@ class TestCardGame(TestCase):
         """בודקת במידה והרשימות של שני השחקנים באותו אורך שהיא מחזירה none"""
         card1 = Card(1, 1)
         card2 = Card(2, 2)
-        card3 = Card(3, 5)
-        card4 = Card(3, 7)
+        card3 = Card(5, 2)
+        card4 = Card(7, 4)
         self.game_test.player_1.player_deck = [card1, card2]
         self.game_test.player_2.player_deck = [card3, card4]
         self.assertIsNone(self.game_test.get_winner())
@@ -45,13 +48,8 @@ class TestCardGame(TestCase):
     def test_new_game_20(self):
         """בודקת שבאמת מחלקת את כמות הקלפים שהמשתמש ביקש"""
         self.game_test = CardGame("dima", "shachar", 20)
-        self.assertEqual(len(self.game_test.player_1.player_deck),20)
-        self.assertEqual(len(self.game_test.player_2.player_deck),20)
-
-    def test_new_game_10(self):
-        """בודקת שבמידה ולא הזנו מספר קלפים לחלוקה, כל שחקן יקבל 10 קלפים"""
-        self.assertEqual(len(self.game_test.player_1.player_deck),10)
-        self.assertEqual(len(self.game_test.player_2.player_deck),10)
+        self.assertEqual(len(self.game_test.player_1.player_deck), 20)
+        self.assertEqual(len(self.game_test.player_2.player_deck), 20)
 
     def test_new_game_0(self):
         """בודקת שמחזירה שגיאה כאשר מספר הקלפים לחלוקה הוא 0"""
