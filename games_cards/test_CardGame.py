@@ -3,7 +3,6 @@ from games_cards.CardGame import CardGame
 from games_cards.Card import Card
 from sys import exit
 
-
 class TestCardGame(TestCase):
     def setUp(self):
         self.game_test=CardGame("dima","shachar")
@@ -30,25 +29,31 @@ class TestCardGame(TestCase):
 
     def test_new_game(self):
         """בודקת שבמידה והפונקציה לא הופעלה מהקונסטרקטור היא מחזירה שגיאה"""
-        # self.assertRaises(self.game_test.new_game(), "Error")
-        # self.assertIn(self.game_test.new_game(), "Error")
         with self.assertRaises(SystemExit):
             self.game_test.new_game()
+
+    def test_new_game_20(self):
+        """בודקת שבאמת מחלקת את כמות הקלפים שהמשתמש ביקש"""
+        self.game_test = CardGame("dima", "shachar", 20)
+        self.assertEqual(len(self.game_test.player_1.player_deck),20)
+        self.assertEqual(len(self.game_test.player_2.player_deck),20)
 
     def test_new_game_10(self):
         """בודקת שבמידה ולא הזנו מספר קלפים לחלוקה, כל שחקן יקבל 10 קלפים"""
         self.assertEqual(len(self.game_test.player_1.player_deck),10)
         self.assertEqual(len(self.game_test.player_2.player_deck),10)
 
-    def text_new_game_0(self):
-        """בודקת מה קורה אם הזנו 0 במספר הקלפים לחלוקה"""
-        self.game_test = CardGame("dima", "shachar", 0)
-        self.assertEqual(len(self.game_test.player_1.player_deck), 0)
-        #  צריכה לתת שגיאה שחייבים לחלק כמות מסויימת
+    def test_new_game_0(self):
+        """בודקת שמחזירה שגיאה כאשר מספר הקלפים לחלוקה הוא 0"""
+        with self.assertRaises(SystemExit):
+            self.game_test = CardGame("dima", "shachar", 0)
 
-    def text_new_game_30(self):
+    def test_new_game_minus(self):
+        """בודקת שמחזירה שגיאה כאשר מספר הקלפים לחלוקה הוא מינוס"""
+        with self.assertRaises(SystemExit):
+            self.game_test = CardGame("dima", "shachar", -5)
+
+    def test_new_game_30(self):
         """בודקת מה קורה אם הזנו מעל 26 קלפים לכל אחד"""
         self.game_test = CardGame("dima", "shachar", 30)
         self.assertEqual(len(self.game_test.player_1.player_deck), 26)
-        #  צריכה לתת הערה ואז לחלק 26
-

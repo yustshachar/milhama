@@ -3,18 +3,21 @@ from games_cards.Player import Player
 from sys import exit
 
 class CardGame:
-    def __init__(self,name1, name2, num_cards=10):
+    def __init__(self,name1="player-1", name2="player-2", num_cards=10):
         """מקבלת כמה קלפים לחלק לכל שחקן, מגדירה 2 שחקנים, יוצרת חפיסה ומתחילה משחק חדש"""
-        if 1<=num_cards: #בודקת שכמות הקלפים היא תיקנית ולא פחות מ1
-            if num_cards>26: # אם כמות הקלפים לחלוקה גדול מ26 היא תחלק רק 26 ותעדכן
-                print("only 26 cards dealt")
-            self.num_cards=num_cards
-            self.player_1=Player(name1,self.num_cards)
-            self.player_2=Player(name2,self.num_cards)
-            self.deck_cards=DeckOfCard()
-            self.new_game()
+        if type(num_cards) == int: # נכנסת רק כאשר המספר הוא שלם ותקין
+            if 1<=num_cards: #בודקת שכמות הקלפים היא תיקנית ולא פחות מ1
+                if num_cards>26: # אם כמות הקלפים לחלוקה גדול מ26 היא תחלק רק 26 ותעדכן
+                    print("only 26 cards dealt")
+                self.num_cards=num_cards
+                self.player_1=Player(name1,self.num_cards)
+                self.player_2=Player(name2,self.num_cards)
+                self.deck_cards=DeckOfCard()
+                self.new_game()
+            else:
+                exit("ERROR!") # אם הכמות היא פחות מ1 תדפיס שגיאה
         else:
-            exit("ERROR!") # אם הכמות לא תיקנית תדפיס שגיאה
+            exit("ERROR!")  # אם המספר אינו תיקני
 
     def get_winner(self):
         """בודקת את אורך הרשימה של שחקן אחד לעומת אורך הרשימה של השחקן השני, ומחזירה את השם של השחקן עם הרשימה הקצרה ביותר או אם הם שווים"""
