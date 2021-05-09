@@ -1,11 +1,21 @@
 from unittest import TestCase
 from games_cards.CardGame import CardGame
 from games_cards.Card import Card
-from sys import exit
 
 class TestCardGame(TestCase):
     def setUp(self):
         self.game_test=CardGame("dima","shachar")
+
+    def test_num_cards_not_int(self):
+        """בודקת שהמערכת מציגה שגיאה כאשר כמות הקלפים לחלוקה אינו מספר תקין"""
+        with self.assertRaises(SystemExit):
+            self.game_test=CardGame("dima", "shachar", "bdika")
+
+    def test_no_name_input(self):
+        """בודקת האם המשחק עובד כאשר לא מזינים בכלל פרטים כולל שמות שחקנים"""
+        self.game_test=CardGame()
+        self.assertEqual(self.game_test.player_1.name, "player-1")
+        self.assertEqual(self.game_test.player_2.name, "player-2")
 
     def test_get_winner(self):
         """בודקת כאשר יש לשחקן השני פחות קלפים שהשם שלו חוזר"""

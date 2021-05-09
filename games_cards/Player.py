@@ -18,10 +18,13 @@ class Player:
             if len(self.player_deck) == 26:
                 break
 
+    def random_get_card(self, end):
+        """מחזירה ערך אקראי לצורך בדיקה"""
+        return randint(0, end)
+
     def get_card(self):
         """שולפת קלף מהחבילה של השחקן ומחזיר אותו"""
-        rand_num = randint(0, len(self.player_deck))
-        player_card = self.player_deck.pop(rand_num - 1)
+        player_card = self.player_deck.pop(self.random_get_card(len(self.player_deck)-1))
         return player_card
 
     def add_card(self, card):

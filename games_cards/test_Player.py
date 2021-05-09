@@ -29,11 +29,11 @@ class TestPlayer(TestCase):
         with self.assertRaises(SystemExit):
             self.player_1.set_hand(deck_cards)
 
-    @mock.patch("random.randint", return_value=1)
-    def test_get_card(self, mock_1):
+    @mock.patch("games_cards.Player.Player.random_get_card", return_value=1)
+    def test_get_card(self, mock_rand):
         """בדיקה האם פונקציה מחזירה קלף אשר נמצא במקום השני ברשימת PLAYER_DECK """
         self.player_1.player_deck = [self.card_1, self.card_2]
-        self.assertEqual(self.card_2, self.player_1.get_card())
+        self.assertIs(self.card_2, self.player_1.get_card())
 
     def test_add_card(self):
         """בודקת האם ADD_CARD מוסיפה CARD1"""
